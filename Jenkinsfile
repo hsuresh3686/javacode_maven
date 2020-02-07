@@ -7,4 +7,5 @@ node {
   }
   stage('Executing Jar'){
     sh 'java -jar /var/lib/jenkins/workspace/maven-javacode/target/sample-maven-0.1.0-SNAPSHOT.jar'
+  }
 }
