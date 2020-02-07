@@ -3,7 +3,6 @@ node {
     git 'https://github.com/hsuresh3686/javacode_maven.git'
   }
   stage('Compile Package'){
-    def mvnHome = tool name: '', type: 'maven'
-    sh "${mvnHome}/bin/mvn package"
+    sh '/opt/apache-maven-3.6.3/bin/mvn package'
   }
 }
