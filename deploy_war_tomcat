@@ -1,0 +1,32 @@
+pipeline {
+   agent any
+   
+   tools {
+       maven "M3"
+   }
+
+   stages {
+      stage('SCM Chckout') {
+         steps {
+            git branch: 'feature/feature1', credentialsId: 'GIT', url: 'https://github.com/hsuresh3686/javacode_maven.git'
+         }
+      }
+      stage('Build'){
+          steps {
+              sh "mvn clean package deploy"
+          }
+      }
+      stage('Deploy in Tomcat'){
+          steps {
+             sshagent(['Tomcat_Server']) {
+                 sh label: '', script: '''ssh -o StrictHostKeyChecking=no ubuntu@172.31.22.118 \'/opt/tomcat9/bin/shutdown.sh\'
+ssh -o StrictHostKeyChecking=no ubuntu@172.31.22.118 \'rm -rf /opt/tomcat9/webapps/sample-maven*\'
+'''
+                 sh 'scp -o StrictHostKeyChecking=no target/sample-maven-0.1.0-SNAPSHOT.war ubuntu@172.31.22.118:/opt/tomcat9/webapps/sample-maven.war'
+                 sh label: '', script: 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.22.118 \'/opt/tomcat9/bin/startup.sh\''
+                }
+          }
+      }
+   }   
+}
+
