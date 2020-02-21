@@ -1,0 +1,30 @@
+node {
+    stage('SCM Checkout'){
+        //Git Operation
+        git branch: 'feature/feature2', credentialsId: 'GIT', url: 'https://github.com/hsuresh3686/javacode_maven'
+    }
+    stage('Maven Build'){
+        //sh label: '', script: 'mvn clean package'
+        //sh 'mvn clean package'
+        //Another way using tool configuration
+        def mvnHome = tool name: 'M3', type: 'maven'
+        def mvnCmd = "${mvnHome}/bin/mvn"
+        sh "${mvnCmd} clean package"
+    }
+    stage('Build Docker Image'){
+        sh 'docker build -t hsuresh3686/sample-web:1.0.0 .'
+    }
+    stage('Push Docker Image'){
+    //withCredentials configuration and using secret text
+    withCredentials([string(credentialsId: 'docr_pwd', variable: 'DockerHubPwd')]) {
+        sh "docker login -u hsuresh3686 -p ${DockerHubPwd}"
+      }
+        sh 'docker push hsuresh3686/sample-web:1.0.0'
+    }
+    stage('Run Container Phase'){
+        def dockerRun = 'docker run -it -p 8080:8080 -d --name myapp hsuresh3686/sample-web:1.0.0'
+        sshagent(['ubuntu']) {
+           sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.29.205 ${dockerRun}"
+        }
+    }
+}
