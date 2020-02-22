@@ -4,10 +4,13 @@ mv -f apache-maven-3.6.3 maven3
 
 echo "Maven Installed, open the sh file and set the properties"
 
-## Set below properties iin /etc/profile file under root
-##	vi /etc/profile
-##	export M2_HOME=/opt/maven3
-##	PATH=$PATH:$M2_HOME/bin
-##	export M2_HOME
-##	export PATH
-
+###########################################################
+###########################################################
+## Set below properties iin /etc/profile file under root ##
+##	vi /etc/profile					 ##
+##	export M2_HOME=/opt/maven3			 ##
+##	PATH=$PATH:$M2_HOME/bin				 ##
+##	export M2_HOME					 ##
+##	export PATH					 ##
+###########################################################
+###########################################################
