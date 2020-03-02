@@ -1,2 +1,2 @@
 FROM tomcat:8
-copy target/sample-maven.war /usr/local/tomcat/webapps/
+copy /var/lib/jenkins/workspace/Paramers /usr/local/tomcat/webapps/
