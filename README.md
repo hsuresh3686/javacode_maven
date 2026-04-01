@@ -21,4 +21,4 @@ This is Simple Java Application which can be deployed in Tomcat.
 * Maven will build the clean war file with the code given in src with reference of pom.xml
 * We can deploy as Docker Container or it can be deployed directly in the tomcat
 
-Finally you can access http://<your_ec2_ip>/sample-maven
+Finally you can access http://<your_ec2_ip>:8080/sample-maven
