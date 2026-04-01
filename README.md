@@ -17,6 +17,8 @@ This is Simple Java Application which can be deployed in Tomcat.
 11. Work on the Webhook in Github repo so that CI (Continuous Integration) also can be achieved.
 
 # Flow
-Jenkins will pickup the code from the Repo
-Maven will build the clean war file with the code given in src
-We can deploy as Docker Container or it can be deployed directly in the tomcat
+* Jenkins will pickup the code from the Repo
+* Maven will build the clean war file with the code given in src
+* We can deploy as Docker Container or it can be deployed directly in the tomcat
+
+Finally you can access http://<your_ec2_ip>/sample-maven
